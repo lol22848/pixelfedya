@@ -40,7 +40,7 @@
     background-size: 40px 40px;
   }
 
-  /* ====== МЕНЮ (левый верхний угол) ====== */
+  /* ====== МЕНЮ ====== */
   .menu {
     position: fixed;
     top: 20px;
@@ -72,7 +72,6 @@
     transform: translateX(4px);
   }
 
-  /* Выпадающее окно */
   .dropdown {
     display: none;
     background: #14142a;
@@ -163,7 +162,6 @@
     font-weight: bold;
   }
 
-  /* Кнопка «Открыть редактор» */
   .btn-editor {
     display: inline-block;
     padding: 18px 50px;
@@ -189,7 +187,6 @@
     box-shadow: 3px 3px 0 #1a0a3e;
   }
 
-  /* Подпись */
   .footer {
     position: fixed;
     bottom: 15px;
@@ -198,7 +195,7 @@
     letter-spacing: 2px;
   }
 
-  /* ====== УВЕДОМЛЕНИЕ О COOKIE (визуальное) ====== */
+  /* ====== УВЕДОМЛЕНИЕ О COOKIE ====== */
   .cookie-banner {
     position: fixed;
     left: 20px;
@@ -212,6 +209,14 @@
     align-items: center;
     gap: 20px;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+    transition: transform 0.4s ease, opacity 0.4s ease;
+  }
+
+  /* Скрытое состояние — уезжает вниз и растворяется */
+  .cookie-banner.hide {
+    transform: translateY(150%);
+    opacity: 0;
+    pointer-events: none;
   }
 
   .cookie-banner p {
@@ -309,18 +314,18 @@
       Простой редактор с палитрами и экспортом — прямо в браузере.
     </p>
 
-    <a href="/editor" class="btn-editor">Открыть редактор</a>
+    <a href="editor/" class="btn-editor">Открыть редактор</a>
 
     <div class="footer">v1.0 · сделано с ♥</div>
   </div>
 
-  <!-- УВЕДОМЛЕНИЕ О COOKIE (нефункциональное) -->
-  <div class="cookie-banner">
+  <!-- УВЕДОМЛЕНИЕ О COOKIE -->
+  <div class="cookie-banner" id="cookieBanner">
     <p>
       Мы используем файлы cookie для корректной работы сайта и анализа посещаемости.
       Продолжая пользоваться сайтом, вы соглашаетесь с этим.
     </p>
-    <button class="cookie-btn">Принять</button>
+    <button class="cookie-btn" onclick="acceptCookies()">Принять</button>
   </div>
 
 <script>
@@ -339,8 +344,11 @@
     }
   });
 
-  // Кнопка «Принять» — без функционала.
-  // Уведомление всегда отображается и не зависит от cookie.
+  /* ====== Cookie: нажатие «Принять» скрывает уведомление ====== */
+  function acceptCookies() {
+    const banner = document.getElementById('cookieBanner');
+    banner.classList.add('hide');
+  }
 </script>
 
 </body>
